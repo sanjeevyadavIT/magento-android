@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MageCart</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="tnc">I agree to terms and conditions</string>
 </resources>
