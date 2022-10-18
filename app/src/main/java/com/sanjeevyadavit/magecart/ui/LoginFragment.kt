@@ -13,12 +13,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.sanjeevyadavit.magecart.R
 import com.sanjeevyadavit.magecart.databinding.FragmentLoginBinding
+import com.sanjeevyadavit.magecart.viewmodel.LoginViewModel
 import com.sanjeevyadavit.magecart.viewmodel.MainActivityViewModel
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: MainActivityViewModel by activityViewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -36,14 +38,7 @@ class LoginFragment : Fragment() {
         setupObservers()
     }
 
-    private fun setupObservers() {
-        viewModel.isLoggedIn.observe(viewLifecycleOwner) {
-            if (it){
-                Toast.makeText(context, "Logged In!", Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack()
-            }
-        }
-    }
+    private fun setupObservers() {}
 
     private fun setupClickListeners() {
         binding.signupCta.setOnClickListener {
