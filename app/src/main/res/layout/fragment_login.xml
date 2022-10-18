@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sanjeevyadavit.magecart.viewmodel.MainActivityViewModel" />
+            type="com.sanjeevyadavit.magecart.viewmodel.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/email"
+            android:text="@={viewModel.email}"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/password"
+            android:text="@={viewModel.password}"
             android:inputType="textPassword"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/email_et"
