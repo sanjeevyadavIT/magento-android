@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.sanjeevyadavit.magecart.viewmodel.MainActivityViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -40,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/login"
+            android:onClick="@{() -> viewModel.login()}"
             app:layout_constraintEnd_toEndOf="@+id/password_et"
             app:layout_constraintStart_toStartOf="@+id/password_et"
             app:layout_constraintTop_toBottomOf="@+id/password_et" />
