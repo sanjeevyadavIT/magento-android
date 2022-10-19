@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.sanjeevyadavit.magecart.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.sanjeevyadavit.magecart.ui.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.sanjeevyadavit.magecart.ui.SignupFragment"
-        android:label="fragment_signup"
+        android:label="@string/signup"
         tools:layout="@layout/fragment_signup" />
 </navigation>
