@@ -8,4 +8,7 @@
     <string name="last_name">Last Name</string>
     <string name="tnc">I agree to terms and conditions</string>
     <string name="hello_msg">Hi User!</string>
+    <string name="home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="profile">Profile</string>
 </resources>

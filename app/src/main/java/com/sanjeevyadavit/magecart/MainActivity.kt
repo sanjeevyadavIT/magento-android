@@ -1,6 +1,7 @@
 package com.sanjeevyadavit.magecart
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,30 +16,51 @@ import com.sanjeevyadavit.magecart.viewmodel.MainActivityViewModel
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        getNavController().let {
-            setupToolbar(it)
-            setupDrawer(it)
-        }
+        getNavController()
+        setupBottomNavigation()
+        setupToolbar()
+        setupDrawer()
     }
 
-    private fun getNavController(): NavController {
+    private fun getNavController() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        return navHostFragment.navController
+        navController = navHostFragment.navController
     }
 
-    private fun setupToolbar(navController: NavController) {
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerContainer)
+    private fun setupToolbar() {
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.categoriesFragment, R.id.profileFragment), binding.drawerContainer)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
     }
 
-    private fun setupDrawer(navController: NavController) {
+    private fun setupDrawer() {
         binding.drawerView.setupWithNavController(navController)
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment, R.id.categoriesFragment, R.id.profileFragment -> showBottomNav()
+                else -> hideBottomNav()
+            }
+        }
+    }
+
+    private fun showBottomNav() {
+        binding.bottomNavigation.visibility = View.VISIBLE
+
+    }
+
+    private fun hideBottomNav() {
+        binding.bottomNavigation.visibility = View.GONE
+
     }
 }
