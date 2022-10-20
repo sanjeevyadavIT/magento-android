@@ -27,12 +27,4 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.loginCta.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-            it.findNavController().navigate(action)
-        }
-    }
 }
