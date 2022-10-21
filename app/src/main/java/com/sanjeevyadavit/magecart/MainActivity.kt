@@ -1,16 +1,18 @@
 package com.sanjeevyadavit.magecart
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.sanjeevyadavit.magecart.databinding.ActivityMainBinding
+import com.sanjeevyadavit.magecart.ui.LoginFragment
 import com.sanjeevyadavit.magecart.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +20,19 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+    private lateinit var sharedPref: SharedPreferences
+
+    companion object {
+        const val SHARED_PREFERENCE_NAME = "myAppPrefs"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        sharedPref = getSharedPreferences(
+            SHARED_PREFERENCE_NAME,
+            Context.MODE_PRIVATE
+        )
         getNavController()
         setupBottomNavigation()
         setupToolbar()
@@ -35,7 +46,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.categoriesFragment, R.id.profileFragment), binding.drawerContainer)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.categoriesFragment,
+                R.id.profileFragment
+            ), binding.drawerContainer
+        )
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
     }
@@ -56,11 +73,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBottomNav() {
         binding.bottomNavigation.visibility = View.VISIBLE
-
+        binding.bottomNavigation.setOnItemSelectedListener {
+            navController.navigate(
+                when(it.itemId){
+                    R.id.homeFragment -> R.id.homeFragment
+                    R.id.categoriesFragment -> R.id.categoriesFragment
+                    R.id.profileFragment -> if(isLoggedIn()) R.id.profileFragment else R.id.loginFragment
+                    else -> R.id.homeFragment
+                }
+            )
+            return@setOnItemSelectedListener true
+        }
     }
 
     private fun hideBottomNav() {
         binding.bottomNavigation.visibility = View.GONE
-
     }
+
+    private fun isLoggedIn() = sharedPref.getString(LoginFragment.CUSTOMER_TOKEN, null) != null
 }

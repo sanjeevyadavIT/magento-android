@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sanjeevyadavit.magecart.model.LoginBodyRequest
@@ -17,6 +18,10 @@ import retrofit2.Response
 class LoginViewModel(app: Application): AndroidViewModel(app) {
     val email: MutableLiveData<String> = MutableLiveData("")
     val password: MutableLiveData<String> = MutableLiveData("")
+
+    private val _customerToken = MutableLiveData<String?>(null)
+    val customerToken: MutableLiveData<String?>
+        get() = _customerToken
 
     fun login(){
         if(handleEmptyValues()) return
@@ -38,7 +43,7 @@ class LoginViewModel(app: Application): AndroidViewModel(app) {
                 object: retrofit2.Callback<String> {
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         if (response.code() == 200) {
-                            response.body()?.let { Log.d("SANJEEV", it) }
+                            response.body()?.let { _customerToken.value = it }
                             showToast("Logged In Successfully!!!")
                             resetValues()
                         } else {
