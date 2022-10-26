@@ -1,11 +1,14 @@
 package com.sanjeevyadavit.magecart.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Customer(
-    val email: String,
-    val firstname: String,
-    val lastname: String
+    @SerializedName("email")  val email: String,
+    @SerializedName("firstname")  val firstname: String,
+    @SerializedName("lastname")  val lastname: String
 )
 
 data class SignupBodyRequest(
-    val customer: Customer, val password: String
+    @SerializedName("customer") val customer: Customer,
+    @SerializedName("password") val password: String
 )
