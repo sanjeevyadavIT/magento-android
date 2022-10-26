@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -92,7 +93,7 @@ fun Profile(sharedPreferences: SharedPreferences) {
                         .background(Color.White)
                         .border(1.dp, Color.DarkGray),
                 )
-                Text(text = "Hi User")
+                Text(text = stringResource(R.string.greetings_user))
             }
 
         }

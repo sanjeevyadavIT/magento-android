@@ -1,7 +1,6 @@
 package com.sanjeevyadavit.magecart.viewmodel
 
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -12,15 +11,17 @@ import com.sanjeevyadavit.magecart.service.ApiInterface
 import com.sanjeevyadavit.magecart.service.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
+import kotlinx.coroutines.withContext
 
 class LoginViewModel(app: Application): AndroidViewModel(app) {
+
+    private val facade: ApiInterface = RetrofitClient.getInstance().create(ApiInterface::class.java)
+
     val email: MutableLiveData<String> = MutableLiveData("")
     val password: MutableLiveData<String> = MutableLiveData("")
 
     private val _customerToken = MutableLiveData<String?>(null)
-    val customerToken: MutableLiveData<String?>
+    val customerToken: LiveData<String?>
         get() = _customerToken
 
     fun login(){
@@ -29,7 +30,7 @@ class LoginViewModel(app: Application): AndroidViewModel(app) {
     }
 
     private fun handleEmptyValues(): Boolean{
-        if(email.value!!.isEmpty()  || password.value!!.isEmpty()) {
+        if(email.value.isNullOrEmpty()  || password.value.isNullOrEmpty()) {
            showToast("Fields cannot be empty")
             return true;
         }
@@ -38,25 +39,19 @@ class LoginViewModel(app: Application): AndroidViewModel(app) {
 
     private fun makeLoginApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
-            val facade: ApiInterface = RetrofitClient.getInstance().create(ApiInterface::class.java)
-            facade.login(LoginBodyRequest(email.value!!, password.value!!)).enqueue(
-                object: retrofit2.Callback<String> {
-                    override fun onResponse(call: Call<String>, response: Response<String>) {
-                        if (response.code() == 200) {
-                            response.body()?.let { _customerToken.value = it }
-                            showToast("Logged In Successfully!!!")
-                            resetValues()
-                        } else {
-                            showToast("Something went wrong")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<String>, t: Throwable) {
-                        showToast("Something went wrong")
-                    }
-
+            try {
+                // TODO: this logic should be in Repository
+                val response = facade.login(LoginBodyRequest(email.value!!, password.value!!))
+                withContext(Dispatchers.Main) {
+                    _customerToken.value = response
+                    showToast("Logged In Successfully!!!")
+                    resetValues()
                 }
-            )
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showToast("Error: ${e.message}")
+                }
+            }
         }
     }
 

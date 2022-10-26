@@ -12,4 +12,5 @@
     <string name="categories">Categories</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="greetings_user">Hi User</string>
 </resources>

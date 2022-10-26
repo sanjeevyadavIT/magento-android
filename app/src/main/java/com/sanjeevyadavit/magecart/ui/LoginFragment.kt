@@ -50,12 +50,12 @@ class LoginFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.customerToken.observe(viewLifecycleOwner) {
-            if (it != null) {
+            it?.let {
                 with(sharedPreferences.edit()) {
                     putString(CUSTOMER_TOKEN, it)
                     apply()
-                    findNavController().popBackStack()
                 }
+                findNavController().popBackStack()
             }
         }
     }
