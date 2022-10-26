@@ -19,7 +19,7 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField("String", "MAGENTO_ACCESS_TOKEN", MAGENTO_ACCESS_TOKEN)
+        buildConfigField("String", "MAGENTO_ACCESS_TOKEN", MEGAPLAZA_ACCESS_TOKEN)
     }
 
     buildTypes {
