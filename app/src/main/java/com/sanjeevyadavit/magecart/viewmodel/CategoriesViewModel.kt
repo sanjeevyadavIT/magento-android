@@ -2,6 +2,9 @@ package com.sanjeevyadavit.magecart.viewmodel
 
 import android.app.Application
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,8 +20,8 @@ class CategoriesViewModel(app: Application): AndroidViewModel(app) {
 
     private val facade: ApiInterface = RetrofitClient.getInstance().create(ApiInterface::class.java)
 
-    private val _categoryTree = MutableLiveData<CategoryTree?>(null)
-    val categoryTree: LiveData<CategoryTree?>
+    private val _categoryTree: MutableState<List<CategoryTree>> = mutableStateOf(listOf())
+    val categoryTree: State<List<CategoryTree>>
         get() = _categoryTree
 
     init {
@@ -31,7 +34,7 @@ class CategoriesViewModel(app: Application): AndroidViewModel(app) {
                 // TODO: this logic should be in Repository
                 val response = facade.getCategoryTree()
                 withContext(Dispatchers.Main) {
-                    _categoryTree.value = response
+                    _categoryTree.value = response.childrenData
                     showToast("Categories fetched successfully")
                 }
             } catch (e: Exception) {

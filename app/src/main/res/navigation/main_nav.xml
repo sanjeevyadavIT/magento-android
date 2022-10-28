@@ -13,15 +13,13 @@
 
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.sanjeevyadavit.magecart.ui.CategoriesFragment"
-        android:label="@string/categories"
-        tools:layout="@layout/fragment_categories" />
+        android:name="com.sanjeevyadavit.magecart.ui.categories.CategoriesFragment"
+        android:label="@string/categories" />
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.sanjeevyadavit.magecart.ui.ProfileFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" >
+        android:label="@string/profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
