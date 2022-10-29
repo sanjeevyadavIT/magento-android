@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.sanjeevyadavit.magecart.R
 import com.sanjeevyadavit.magecart.model.CategoryTree
 
@@ -51,6 +52,7 @@ fun CategoryListItem(categoryItem: CategoryTree) {
     var isExpanded by remember { mutableStateOf(false) }
     val containsChildList = categoryItem.childrenData.isNotEmpty()
     val context = LocalContext.current
+    val navController = rememberNavController()
 
     val angle: Float by animateFloatAsState(
         if (isExpanded) -180F else 0F,
@@ -66,10 +68,8 @@ fun CategoryListItem(categoryItem: CategoryTree) {
                 if (containsChildList) {
                     isExpanded = !isExpanded
                 } else {
-                    // TODO: Open ProductListing for that category
-                    Toast
-                        .makeText(context, categoryItem.name, Toast.LENGTH_SHORT)
-                        .show()
+                    val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductListFragment(categoryItem.id)
+                    navController.navigate(action)
                 }
             }
             .fillMaxWidth()
