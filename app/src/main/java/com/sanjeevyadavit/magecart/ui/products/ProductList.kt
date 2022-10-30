@@ -14,21 +14,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.sanjeevyadavit.magecart.model.Constants
+import com.sanjeevyadavit.magecart.model.StoreConfigs
 import com.sanjeevyadavit.magecart.model.product.ProductData
 import com.sanjeevyadavit.magecart.model.product.Products
 import com.sanjeevyadavit.magecart.service.RetrofitClient
 
 @Composable
-fun ProductList(products: Products){
+fun ProductList(products: Products, storeConfigs: StoreConfigs? = null){
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-        itemsIndexed(products?.items) { _, item ->
-            ProductListItem(product = item)
+        itemsIndexed(products.items) { _, item ->
+            //Question: Is there any way to avoid prop drilling for storeConfigs
+            ProductListItem(product = item, storeConfigs=storeConfigs)
         }
     }
 }
 
 @Composable
-fun ProductListItem(product: ProductData){
+fun ProductListItem(product: ProductData, storeConfigs: StoreConfigs? = null){
 
     val thumbnail = product.customAttributes.find {
         it.attributeCode == Constants.THUMBNAIL_SK
@@ -36,7 +38,7 @@ fun ProductListItem(product: ProductData){
 
     Column() {
         AsyncImage(
-            model = "${RetrofitClient.MEDIA_URL}${thumbnail}",
+            model = "${storeConfigs?.baseMediaUrl}catalog/product/${thumbnail}",
             modifier = Modifier.height(100.dp),
             contentDescription = "Product Image"
         )

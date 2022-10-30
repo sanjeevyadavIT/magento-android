@@ -12,11 +12,9 @@ abstract class RetrofitClient {
 
     companion object {
         private var INSTANCE: Retrofit? = null
-//        private const val BASE_URL = "http://34.131.79.89/rest/default/"
+//        private const val BASE_URL = "http://34.131.79.89/"
         private const val BASE_URL = "https://magento-demo.mageplaza.com/"
-        private const val MEGAPLAZA_BASE_URL = "${BASE_URL}rest/default/"
-        // TODO: Get this from Store Config api
-        const val MEDIA_URL = "${BASE_URL}/media/catalog/product"
+        private const val API_BASE_URL = "${BASE_URL}rest/default/"
 
         fun getInstance(): Retrofit {
             var instance = INSTANCE
@@ -46,7 +44,7 @@ abstract class RetrofitClient {
 
         private fun createRetrofitInstance(client: OkHttpClient) = Retrofit.Builder()
             .client(client)
-            .baseUrl(MEGAPLAZA_BASE_URL)
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

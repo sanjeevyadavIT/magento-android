@@ -1,9 +1,6 @@
 package com.sanjeevyadavit.magecart.service
 
-import com.sanjeevyadavit.magecart.model.CategoryTree
-import com.sanjeevyadavit.magecart.model.LoginBodyRequest
-import com.sanjeevyadavit.magecart.model.SignupBodyRequest
-import com.sanjeevyadavit.magecart.model.SignupResponse
+import com.sanjeevyadavit.magecart.model.*
 import com.sanjeevyadavit.magecart.model.product.Products
 import retrofit2.Call
 import retrofit2.http.Body
@@ -12,6 +9,9 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiInterface {
+
+    @GET("V1/store/storeConfigs")
+    suspend fun storeConfigs(): List<StoreConfigs>
 
     @POST("V1/integration/customer/token")
     suspend fun login(@Body loginBodyRequest: LoginBodyRequest): String
