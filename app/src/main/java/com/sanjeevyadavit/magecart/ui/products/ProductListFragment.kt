@@ -29,18 +29,18 @@ class ProductListFragment : Fragment() {
         // Inflate the layout for this fragment
         return ComposeView(requireContext()).apply {
             setContent {
-                val products = viewModel.products.value
-
                 /**
                  * Question: This storeConfigs need to be access across fragment and is present in MainActivityViewModel
                  * what is the best way to access this data in different fragment, right now I am creating instance of MainActivityViewModel
                  */
                 val storeConfigs = activityViewModel.storeConfigs
-                if(products != null ){
-                    viewModel.products.value?.let { ProductList(products = it,storeConfigs = storeConfigs) }
-                } else {
-                    CircularProgressIndicator()
+                viewModel.products.value?.let {
+                    ProductList(
+                        viewModel = viewModel,
+                        storeConfigs = storeConfigs
+                    )
                 }
+
             }
         }
     }
