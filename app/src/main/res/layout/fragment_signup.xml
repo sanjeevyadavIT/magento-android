@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sanjeevyadavit.magecart.viewmodel.SignupViewModel" />
+            type="com.sanjeevyadavit.magecart.presentation.signup.SignupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SignupFragment">
+        tools:context=".presentation.signup.SignupFragment">
 
         <EditText
             android:id="@+id/editTextTextPersonName"
