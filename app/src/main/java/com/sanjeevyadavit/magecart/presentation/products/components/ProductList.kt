@@ -54,7 +54,6 @@ fun ProductListItem(product: Product, storeConfigs: StoreConfigs? = null) {
             .border(1.dp, Color.LightGray)
             .heightIn(min = 240.dp)
     ) {
-        Log.d("SANJEEV", "${storeConfigs?.baseMediaUrl}catalog/product/${product.thumbnailUrl}")
         AsyncImage(
             model = "${storeConfigs?.baseMediaUrl}catalog/product/${product.thumbnailUrl}",
             modifier = Modifier.height(200.dp),

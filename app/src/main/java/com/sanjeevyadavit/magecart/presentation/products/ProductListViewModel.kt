@@ -51,12 +51,16 @@ class ProductListViewModel constructor(
         ).onEach { result ->
             _state.value = when (result) {
                 is Resource.Loading -> if (currentPage > 1) _state.value else IState(isLoading = true)
-                is Resource.Error -> IState(
-                    error = result.message ?: "An unexpected error occurred"
-                )
+                is Resource.Error -> {
+                    _loadMore.value = false
+                    IState(error = result.message ?: "An unexpected error occurred")
+                }
                 is Resource.Success -> {
                     totalCount = result.data?.totalCount ?: 0
-                    IState(data = result.data?.products)
+                    val products = ArrayList(_state.value.data ?: listOf())
+                    products.addAll(result.data?.products ?: listOf())
+                    _loadMore.value = false
+                    IState(data = products)
                 }
             }
         }.launchIn(viewModelScope)

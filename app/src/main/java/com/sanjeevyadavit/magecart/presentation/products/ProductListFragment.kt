@@ -1,6 +1,7 @@
 package com.sanjeevyadavit.magecart.presentation.products
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,6 @@ class ProductListFragment : Fragment() {
     @Inject lateinit var productListUseCase: GetProductListUseCase
 
     val args: ProductListFragmentArgs by navArgs()
-    // FIXME: This activityViewModel is not the same as created at app start, store config api is calling again
     private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
     private val viewModel: ProductListViewModel by viewModels {
         ProductListViewModelFactory(args.categoryId, productListUseCase)
@@ -47,7 +47,7 @@ class ProductListFragment : Fragment() {
                          * Question: This storeConfigs need to be access across fragment and is present in MainActivityViewModel
                          * what is the best way to access this data in different fragment, right now I am creating instance of MainActivityViewModel
                          */
-                        storeConfigs = activityViewModel.storeConfigs
+                        storeConfigs = activityViewModel.storeConfigs.value
                     )
                 }
             }

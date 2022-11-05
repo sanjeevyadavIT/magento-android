@@ -1,5 +1,8 @@
 package com.sanjeevyadavit.magecart.presentation
 
+import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanjeevyadavit.magecart.common.Resource
@@ -15,7 +18,7 @@ class MainActivityViewModel @Inject constructor(
     private val storeConfigsUseCase: GetStoreConfigsUseCase
 ) : ViewModel() {
 
-    private var _storeConfigs: StoreConfigs? = null
+    private var _storeConfigs = mutableStateOf<StoreConfigs?>(null)
     val storeConfigs = _storeConfigs
 
     init {
@@ -25,7 +28,7 @@ class MainActivityViewModel @Inject constructor(
     private fun getStoreConfig() {
         storeConfigsUseCase().onEach {
             if(it is Resource.Success){
-                _storeConfigs = it.data
+                _storeConfigs.value = it.data
             }
         }.launchIn(viewModelScope)
     }

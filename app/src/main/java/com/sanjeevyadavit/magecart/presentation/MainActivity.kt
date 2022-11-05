@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupToolbar()
         setupDrawer()
+        viewModel.storeConfigs // Hack to actually call the API
     }
 
     private fun getNavController() {

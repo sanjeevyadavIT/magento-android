@@ -22,7 +22,7 @@ class LoginViewModel @Inject constructor(
     val email: MutableLiveData<String> = MutableLiveData("")
     val password: MutableLiveData<String> = MutableLiveData("")
 
-    private val _state = MutableLiveData<IState<String>>(null)
+    private val _state = MutableLiveData<IState<String>>(IState())
     val state = _state
 
     fun login() {
