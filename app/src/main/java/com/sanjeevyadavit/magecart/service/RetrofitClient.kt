@@ -12,6 +12,7 @@ abstract class RetrofitClient {
     companion object {
         private var INSTANCE: Retrofit? = null
         private const val BASE_URL = "http://34.131.79.89/rest/default/"
+        private const val MEGAPLAZA_BASE_URL = "https://magento-demo.mageplaza.com/rest/default/"
 
         fun getInstance(): Retrofit {
             var instance = INSTANCE
@@ -27,7 +28,7 @@ abstract class RetrofitClient {
 
                 instance = Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BASE_URL)
+                    .baseUrl(MEGAPLAZA_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 INSTANCE = instance
