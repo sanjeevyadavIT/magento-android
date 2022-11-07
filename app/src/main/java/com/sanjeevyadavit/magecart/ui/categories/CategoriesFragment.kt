@@ -37,7 +37,7 @@ class CategoriesFragment : Fragment() {
 
 @Preview(showBackground = true, widthDp = 320, heightDp = 720)
 @Composable
-fun preview() {
+fun CategoryListPreview() {
     val list = listOf(
         CategoryTree(
             id = 20,
@@ -70,9 +70,8 @@ fun preview() {
     heightDp = 720,
     uiMode = UI_MODE_NIGHT_YES,
 )
-
 @Composable
-fun previewInDarkMode() {
+fun CategoryListPreviewInDarkMode() {
     val list = listOf<CategoryTree>(
         CategoryTree(
             id = 20,
