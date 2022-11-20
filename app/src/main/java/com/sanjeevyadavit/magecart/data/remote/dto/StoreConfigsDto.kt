@@ -4,8 +4,6 @@ package com.sanjeevyadavit.magecart.data.remote.dto
 import com.google.gson.annotations.SerializedName
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 
-
-// QUESTION: Does DTO and creating corresponding model class in domain make sense or should we use single class?
 data class StoreConfigsDto(
     @SerializedName("base_currency_code")
     val baseCurrencyCode: String,

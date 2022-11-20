@@ -1,5 +1,6 @@
 package com.sanjeevyadavit.magecart.presentation.categories
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,8 @@ class CategoryListViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _state = mutableStateOf(IState<List<Category>>())
-    val state = _state
+    val state: State<IState<List<Category>>>
+        get() = _state
 
     init {
         getCategoryList()

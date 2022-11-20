@@ -1,5 +1,6 @@
 package com.sanjeevyadavit.magecart.presentation.products
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,37 +9,35 @@ import com.sanjeevyadavit.magecart.common.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.Filter
 import com.sanjeevyadavit.magecart.domain.model.Product
 import com.sanjeevyadavit.magecart.domain.use_case.GetProductListUseCase
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 const val PAGE_SIZE = 10
 
-// QUESTION: How to have this as @HiltViewModel, when categoryId need to be provided on runtime and getProductListUseCase on build time ?
-class ProductListViewModel constructor(
-    categoryId: Int,
+@HiltViewModel
+class ProductListViewModel @Inject constructor(
     var getProductListUseCase: GetProductListUseCase
 ) : ViewModel() {
 
+    private var categoryId by Delegates.notNull<Int>()
+
     private val _state = mutableStateOf(IState<List<Product>>())
-    val state = _state
+    val state: State<IState<List<Product>>>
+        get() = _state
 
     private var _loadMore = mutableStateOf(false)
-    val loadMore = _loadMore
+    val loadMore: State<Boolean>
+        get() = _loadMore
 
     private var totalCount: Int = 0
     private var productListScrollPosition = 0
 
-    private val filters = mutableListOf<Filter>(Filter(field = "category_id", value = categoryId))
-
-    init {
-        getProducts()
-    }
-
-    private fun getProducts() {
+    fun getProducts(categoryId: Int) {
+        this.categoryId = categoryId
+        val filters = mutableListOf<Filter>(Filter(field = "category_id", value = categoryId))
         // QUESTION: Where should this pagination logic resides?
         val currentPage = ((_state.value.data?.size ?: 0) / PAGE_SIZE) + 1;
         if (currentPage > 1) {
@@ -69,7 +68,7 @@ class ProductListViewModel constructor(
     fun fetchNextPage() {
         // prevent duplicate event due to recompose happening to quickly
         if ((productListScrollPosition + 1) < (totalCount) && !_loadMore.value) {
-            getProducts()
+            getProducts(categoryId)
         }
     }
 

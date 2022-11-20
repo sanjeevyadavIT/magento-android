@@ -1,7 +1,6 @@
 package com.sanjeevyadavit.magecart.presentation.products
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +10,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.sanjeevyadavit.magecart.common.components.StateContainer
-import com.sanjeevyadavit.magecart.domain.use_case.GetProductListUseCase
 import com.sanjeevyadavit.magecart.ui.products.ProductList
 import com.sanjeevyadavit.magecart.presentation.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
-    // FIXME: I dont think this is the right way
-    @Inject lateinit var productListUseCase: GetProductListUseCase
-
     val args: ProductListFragmentArgs by navArgs()
     private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
-    private val viewModel: ProductListViewModel by viewModels {
-        ProductListViewModelFactory(args.categoryId, productListUseCase)
+
+    private val viewModel: ProductListViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getProducts(args.categoryId)
     }
 
     override fun onCreateView(

@@ -71,6 +71,7 @@ class SignupViewModel @Inject constructor(
         lastName.value = ""
     }
 
+    // TODO: Remove toast message from View Model
     private fun showToast(msg: String) =
         Toast.makeText(getApplication(), msg, Toast.LENGTH_SHORT).show()
 }

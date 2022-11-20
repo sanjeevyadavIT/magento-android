@@ -43,7 +43,7 @@ data class ProductDto(
 fun ProductDto.toProduct(): Product {
     val thumbnailUrl = customAttributes.find {
         it.attributeCode == Constants.THUMBNAIL_SK
-    }?.value as String
+    }?.value as? String
 
     return Product(
         id = id,

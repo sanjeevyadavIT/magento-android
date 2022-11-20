@@ -6,6 +6,8 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+def compose_version = '1.2.0-rc02'
+
 android {
     compileSdk 32
 

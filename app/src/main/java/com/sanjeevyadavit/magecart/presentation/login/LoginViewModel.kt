@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.presentation.login
 
 import android.app.Application
 import android.widget.Toast
+import androidx.compose.runtime.State
 import androidx.lifecycle.*
 import com.sanjeevyadavit.magecart.common.IState
 import com.sanjeevyadavit.magecart.common.Resource
@@ -23,7 +24,8 @@ class LoginViewModel @Inject constructor(
     val password: MutableLiveData<String> = MutableLiveData("")
 
     private val _state = MutableLiveData<IState<String>>(IState())
-    val state = _state
+    val state: LiveData<IState<String>>
+        get() = _state
 
     fun login() {
         if (handleEmptyValues()) return
@@ -66,6 +68,7 @@ class LoginViewModel @Inject constructor(
         password.value = ""
     }
 
+    // TODO: Toast shouldn't be in viewmodel, Use EventLiveData to trigger and observe from UI
     private fun showToast(msg: String) =
         Toast.makeText(getApplication(), msg, Toast.LENGTH_SHORT).show()
 }
