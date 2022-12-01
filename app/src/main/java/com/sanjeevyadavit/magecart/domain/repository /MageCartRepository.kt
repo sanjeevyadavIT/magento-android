@@ -8,6 +8,8 @@ interface MageCartRepository {
 
     suspend fun getStoreConfigs(): List<StoreConfigsDto>
 
+    suspend fun getCmsBlock(blockId: Int): CmsBlockDto
+
     suspend fun login(body: LoginBodyRequest): String
 
     suspend fun signup(body: SignupBodyRequest): SignupDto

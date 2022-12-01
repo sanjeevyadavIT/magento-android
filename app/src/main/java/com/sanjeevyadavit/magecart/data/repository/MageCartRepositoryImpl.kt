@@ -10,6 +10,8 @@ class MageCartRepositoryImpl @Inject constructor(private val api: ApiInterface) 
     MageCartRepository {
     override suspend fun getStoreConfigs(): List<StoreConfigsDto> = api.storeConfigs()
 
+    override suspend fun getCmsBlock(blockId: Int): CmsBlockDto = api.getCmsBlock(blockId)
+
     override suspend fun login(body: LoginBodyRequest): String = api.login(body)
 
     override suspend fun signup(body: SignupBodyRequest): SignupDto = api.signup(body)
