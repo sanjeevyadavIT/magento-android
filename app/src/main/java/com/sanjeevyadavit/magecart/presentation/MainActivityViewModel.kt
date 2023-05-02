@@ -1,12 +1,10 @@
 package com.sanjeevyadavit.magecart.presentation
 
-import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 import com.sanjeevyadavit.magecart.domain.use_case.GetStoreConfigsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

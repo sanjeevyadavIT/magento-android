@@ -2,10 +2,9 @@ package com.sanjeevyadavit.magecart.presentation.login
 
 import android.app.Application
 import android.widget.Toast
-import androidx.compose.runtime.State
 import androidx.lifecycle.*
-import com.sanjeevyadavit.magecart.common.IState
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.IState
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.domain.use_case.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

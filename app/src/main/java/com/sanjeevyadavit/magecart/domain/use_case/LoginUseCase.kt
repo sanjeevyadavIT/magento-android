@@ -1,9 +1,7 @@
 package com.sanjeevyadavit.magecart.domain.use_case
 
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.LoginBodyRequest
-import com.sanjeevyadavit.magecart.data.remote.dto.toStoreConfigs
-import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

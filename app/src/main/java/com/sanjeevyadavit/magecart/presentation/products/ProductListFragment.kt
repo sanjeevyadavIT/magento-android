@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
-    val args: ProductListFragmentArgs by navArgs()
+    private val args: ProductListFragmentArgs by navArgs()
     private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
 
     private val viewModel: ProductListViewModel by viewModels()
@@ -45,7 +45,7 @@ class ProductListFragment : Fragment() {
                          * Question: This storeConfigs need to be access across fragment and is present in MainActivityViewModel
                          * what is the best way to access this data in different fragment, right now I am creating instance of MainActivityViewModel
                          */
-                        storeConfigs = activityViewModel.storeConfigs.value
+                        baseMediaUrl = activityViewModel.storeConfigs.value?.baseMediaUrl
                     )
                 }
             }

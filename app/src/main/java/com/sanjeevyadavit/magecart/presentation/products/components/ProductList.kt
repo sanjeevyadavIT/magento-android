@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.sanjeevyadavit.magecart.common.components.ProductListItem
 import com.sanjeevyadavit.magecart.data.remote.dto.StoreConfigsDto
 import com.sanjeevyadavit.magecart.domain.model.Product
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
@@ -26,7 +27,7 @@ fun ProductList(
     totalCount: Int,
     onScroll: (Int) -> Unit,
     fetchMore: () -> Unit,
-    storeConfigs: StoreConfigs? = null
+    baseMediaUrl: String?
 ) {
     Column {
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
@@ -37,28 +38,12 @@ fun ProductList(
                     fetchMore()
                 }
                 //Question: Is there any way to avoid prop drilling for storeConfigs
-                ProductListItem(product = item, storeConfigs = storeConfigs)
+                ProductListItem(product = item, baseMediaUrl = baseMediaUrl)
             }
         }
         if (loadMore) {
             // FIXME: This progress bar is not showing
             CircularProgressIndicator(modifier = Modifier.height(32.dp))
         }
-    }
-}
-
-@Composable
-fun ProductListItem(product: Product, storeConfigs: StoreConfigs? = null) {
-    Column(
-        Modifier
-            .border(1.dp, Color.LightGray)
-            .heightIn(min = 240.dp)
-    ) {
-        AsyncImage(
-            model = "${storeConfigs?.baseMediaUrl}catalog/product/${product.thumbnailUrl}",
-            modifier = Modifier.height(200.dp),
-            contentDescription = "Product Image"
-        )
-        Text(text = product.name)
     }
 }

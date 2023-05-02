@@ -29,11 +29,11 @@ fun CmsBlockDto.toHomeScreenSkeletonData (): HomeScreenSkeletonData{
 
     // TODO:@SANJEEV Extract data from `content`
     // TODO:@SANJEEV Remove this dummy data
-    sliders.add(Slider("Title 1", "wysiwyg/home/home-main.jpg"))
-    sliders.add(Slider("Title 2", "wysiwyg/home/home-t-shirts.png"))
-    sliders.add(Slider("Title 3", "wysiwyg/home/yoga.jpg"))
-    featuredCategories.add(FeaturedCategory(30, "Woman Sale"))
-    featuredCategories.add(FeaturedCategory(31, "Man Sale"))
+//    sliders.add(Slider("Title 1", "wysiwyg/home/home-main.jpg"))
+//    sliders.add(Slider("Title 2", "wysiwyg/home/home-t-shirts.png"))
+//    sliders.add(Slider("Title 3", "wysiwyg/home/yoga.jpg"))
+//    featuredCategories.add(FeaturedCategory(30, "Woman Sale"))
+//    featuredCategories.add(FeaturedCategory(31, "Man Sale"))
 
     return HomeScreenSkeletonData(sliders, featuredCategories)
 }

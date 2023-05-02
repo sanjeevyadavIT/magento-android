@@ -1,6 +1,6 @@
 package com.sanjeevyadavit.magecart.domain.use_case
 
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.toCategory
 import com.sanjeevyadavit.magecart.domain.model.Category
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository

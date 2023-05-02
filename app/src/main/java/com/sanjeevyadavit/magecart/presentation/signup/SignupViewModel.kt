@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sanjeevyadavit.magecart.common.IState
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.IState
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.domain.model.SignupResponse
 import com.sanjeevyadavit.magecart.domain.use_case.SignupUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

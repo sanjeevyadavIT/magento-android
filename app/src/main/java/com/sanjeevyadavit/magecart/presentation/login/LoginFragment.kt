@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.sanjeevyadavit.magecart.presentation.MainActivity
 import com.sanjeevyadavit.magecart.R
-import com.sanjeevyadavit.magecart.common.Resource
 import com.sanjeevyadavit.magecart.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 

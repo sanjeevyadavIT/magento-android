@@ -5,7 +5,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sanjeevyadavit.magecart.common.IState
+import com.sanjeevyadavit.magecart.common.model.IState
 
 @Composable
 fun <T> StateContainer(modifier: Modifier = Modifier, state: IState<T>, content: @Composable() (data: T) -> Unit) {

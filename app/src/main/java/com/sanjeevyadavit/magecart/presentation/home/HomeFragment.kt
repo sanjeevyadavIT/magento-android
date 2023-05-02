@@ -32,9 +32,10 @@ class HomeFragment : Fragment() {
                 MaterialTheme {
                     Surface {
                         val state = viewModel.state.value
+                        val featuredCategoryState = viewModel.featuredCategoryState.value
                         
                         StateContainer(state = state) {
-                           Home(it, activityViewModel.storeConfigs.value?.baseMediaUrl)
+                           Home(it, featuredCategoryState, activityViewModel.storeConfigs.value?.baseMediaUrl)
                         }
                     }
                 }
