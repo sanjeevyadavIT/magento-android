@@ -27,7 +27,8 @@ fun ProductList(
     totalCount: Int,
     onScroll: (Int) -> Unit,
     fetchMore: () -> Unit,
-    baseMediaUrl: String?
+    baseMediaUrl: String?,
+    onClick: (String) -> Unit
 ) {
     Column {
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
@@ -38,7 +39,7 @@ fun ProductList(
                     fetchMore()
                 }
                 //Question: Is there any way to avoid prop drilling for storeConfigs
-                ProductListItem(product = item, baseMediaUrl = baseMediaUrl)
+                ProductListItem(product = item, baseMediaUrl = baseMediaUrl, onClick = onClick)
             }
         }
         if (loadMore) {

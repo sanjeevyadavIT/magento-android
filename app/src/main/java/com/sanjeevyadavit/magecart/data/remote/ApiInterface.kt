@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.data.remote
 
 import com.sanjeevyadavit.magecart.common.Constants
 import com.sanjeevyadavit.magecart.data.remote.dto.*
+import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import retrofit2.http.*
 
@@ -34,6 +35,9 @@ interface ApiInterface {
         @Query("searchCriteria[pageSize]") pageSize: Int = 20,
         @Query("searchCriteria[currentPage]") currentPage: Int = 1
     ): ProductsDto
+
+    @GET("V1/products/{sku}")
+    suspend fun getProductDetail(@Path("sku") sku: String): ProductDto
 
     companion object {
         const val API_BASE_URL = "${Constants.BASE_URL}rest/default/"

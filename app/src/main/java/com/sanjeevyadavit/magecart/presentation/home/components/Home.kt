@@ -22,7 +22,8 @@ import com.sanjeevyadavit.magecart.domain.model.Slider
 fun Home(
     data: HomeScreenSkeletonData,
     featuredCategoryState: HashMap<Int, IState<List<Product>>>,
-    baseMediaUrl: String?
+    baseMediaUrl: String?,
+    onProductClick: (String) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -30,7 +31,12 @@ fun Home(
     ) {
         Carousel(data.sliders, baseMediaUrl)
         data.featuredCategories.map {
-            HorizontalProductList(it, featuredCategoryState, baseMediaUrl)
+            HorizontalProductList(
+                data = it,
+                featuredCategoryState = featuredCategoryState,
+                baseMediaUrl = baseMediaUrl,
+                onClick = onProductClick
+            )
         }
     }
 }

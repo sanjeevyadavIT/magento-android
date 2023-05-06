@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.data.repository
 
 import com.sanjeevyadavit.magecart.data.remote.ApiInterface
 import com.sanjeevyadavit.magecart.data.remote.dto.*
+import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
 import javax.inject.Inject
@@ -32,4 +33,6 @@ class MageCartRepositoryImpl @Inject constructor(private val api: ApiInterface) 
         pageSize = pageSize,
         currentPage = currentPage
     )
+
+    override suspend fun getProductDetail(sku: String): ProductDto = api.getProductDetail(sku)
 }

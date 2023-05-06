@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sanjeevyadavit.magecart.common.components.StateContainer
 import com.sanjeevyadavit.magecart.ui.products.ProductList
@@ -16,25 +17,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductListFragment : Fragment() {
-
-    private val args: ProductListFragmentArgs by navArgs()
     private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
 
     private val viewModel: ProductListViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getProducts(args.categoryId)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val navController = findNavController()
         // Inflate the layout for this fragment
         return ComposeView(requireContext()).apply {
             setContent {
-                StateContainer(state = viewModel.state.value) {
+                StateContainer(state = viewModel.state.value) { it ->
                     ProductList(
                         products = it,
                         loadMore = viewModel.loadMore.value,
@@ -46,7 +41,13 @@ class ProductListFragment : Fragment() {
                          * what is the best way to access this data in different fragment, right now I am creating instance of MainActivityViewModel
                          */
                         baseMediaUrl = activityViewModel.storeConfigs.value?.baseMediaUrl
-                    )
+                    ) { sku ->
+                        val action =
+                            ProductListFragmentDirections.actionProductListFragmentToProductDetailFragment(
+                                sku
+                            )
+                        navController.navigate(action)
+                    }
                 }
             }
         }

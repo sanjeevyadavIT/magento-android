@@ -18,14 +18,15 @@ import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 fun HorizontalProductList(
     data: FeaturedCategory,
     featuredCategoryState: HashMap<Int, IState<List<Product>>>,
-    baseMediaUrl: String?
+    baseMediaUrl: String?,
+    onClick: (String) -> Unit,
 ) {
     featuredCategoryState[data.categoryId]?.let {
         Text(text = data.title)
         StateContainer(state = it) { list ->
             LazyRow {
                 items(list.size) { index ->
-                    ProductListItem(product = list[index], baseMediaUrl = baseMediaUrl, customWidth = 80.dp)
+                    ProductListItem(product = list[index], baseMediaUrl = baseMediaUrl, customWidth = 80.dp, onClick = onClick)
                 }
             }
         }   

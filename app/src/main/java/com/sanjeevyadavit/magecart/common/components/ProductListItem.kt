@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.common.components
 
 import android.util.Log
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +15,7 @@ import com.sanjeevyadavit.magecart.domain.model.Product
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 
 @Composable
-fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = null) {
+fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = null, onClick: (String) -> Unit) {
     val containerModifier = Modifier
         .border(1.dp, Color.LightGray)
         .heightIn(min = 240.dp)
@@ -24,7 +25,9 @@ fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = 
     }
 
     Column(
-        modifier = containerModifier
+        modifier = containerModifier.clickable {
+           onClick(product.sku)
+        }
     ) {
         AsyncImage(
             model = "${baseMediaUrl}catalog/product/${product.thumbnailUrl}",

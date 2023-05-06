@@ -3,6 +3,7 @@ package com.sanjeevyadavit.magecart.domain.repository
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.data.remote.dto.Filter
+import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 
 interface MageCartRepository {
 
@@ -21,4 +22,8 @@ interface MageCartRepository {
         pageSize: Int = 20,
         currentPage: Int = 1
     ): ProductsDto
+
+    suspend fun getProductDetail(
+        sku: String
+    ): ProductDto
 }
