@@ -5,5 +5,6 @@ data class Product(
     val name: String,
     val sku: String,
     val price: Int,
-    val thumbnailUrl: String?
+    val thumbnailUrl: String?,
+    val mediaList: List<String>?
 )

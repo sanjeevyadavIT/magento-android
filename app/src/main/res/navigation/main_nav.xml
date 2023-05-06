@@ -54,6 +54,10 @@
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_productListFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
@@ -61,10 +65,13 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.sanjeevyadavit.magecart.presentation.productDetail.ProductDetailFragment"
-        android:label="fragment_product_detail"
-        tools:layout="@layout/fragment_product_detail" >
+        android:label="fragment_product_detail" >
         <argument
             android:name="productSku"
             app:argType="string" />
+        <argument
+            android:name="productName"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -26,7 +26,7 @@ fun CategoryList(
     modifier: Modifier = Modifier,
     categoryList: List<Category>,
     useLazyList: Boolean = false,
-    onClick: (Int) -> Unit
+    onClick: (Category) -> Unit
 ) {
     // QUESTION: Can we write this code in better way?
     if(useLazyList) {
@@ -50,7 +50,7 @@ fun CategoryList(
 }
 
 @Composable
-fun CategoryListItem(categoryItem: Category, onClick: (Int) -> Unit) {
+fun CategoryListItem(categoryItem: Category, onClick: (Category) -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
     val containsChildList = categoryItem.childrenData.isNotEmpty()
 
@@ -68,7 +68,7 @@ fun CategoryListItem(categoryItem: Category, onClick: (Int) -> Unit) {
                 if (containsChildList) {
                     isExpanded = !isExpanded
                 } else {
-                  onClick(categoryItem.id)
+                  onClick(categoryItem)
                 }
             }
             .fillMaxWidth()

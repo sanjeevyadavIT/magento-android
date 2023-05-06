@@ -50,6 +50,7 @@ fun ProductDto.toProduct(): Product {
         name = name,
         sku = sku,
         price = price,
-        thumbnailUrl = thumbnailUrl
+        thumbnailUrl = thumbnailUrl,
+        mediaList = mediaGalleryEntries.map { it.file }
     )
 }

@@ -28,7 +28,7 @@ fun ProductList(
     onScroll: (Int) -> Unit,
     fetchMore: () -> Unit,
     baseMediaUrl: String?,
-    onClick: (String) -> Unit
+    onClick: (Product) -> Unit
 ) {
     Column {
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {

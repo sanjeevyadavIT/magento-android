@@ -7,16 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.sanjeevyadavit.magecart.common.components.StateContainer
+import com.sanjeevyadavit.magecart.presentation.MainActivityViewModel
+import com.sanjeevyadavit.magecart.presentation.productDetail.components.ProductDetail
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
 
+    private val args: ProductDetailFragmentArgs by navArgs()
+    private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
+
     private val viewModel: ProductDetailViewModel by viewModels()
+
+    // TODO: Set toolbar title as args.productName
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +38,7 @@ class ProductDetailFragment : Fragment() {
                         val state = viewModel.state.value
 
                         StateContainer(state = state) {
-                            Text(text = it.name)
+                            ProductDetail(it, baseMediaUrl = activityViewModel.storeConfigs.value?.baseMediaUrl)
                         }
                     }
                 }

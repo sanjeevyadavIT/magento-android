@@ -15,7 +15,7 @@ import com.sanjeevyadavit.magecart.domain.model.Product
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 
 @Composable
-fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = null, onClick: (String) -> Unit) {
+fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = null, onClick: (Product) -> Unit) {
     val containerModifier = Modifier
         .border(1.dp, Color.LightGray)
         .heightIn(min = 240.dp)
@@ -26,7 +26,7 @@ fun ProductListItem(product: Product, baseMediaUrl: String?, customWidth: Dp? = 
 
     Column(
         modifier = containerModifier.clickable {
-           onClick(product.sku)
+           onClick(product)
         }
     ) {
         AsyncImage(

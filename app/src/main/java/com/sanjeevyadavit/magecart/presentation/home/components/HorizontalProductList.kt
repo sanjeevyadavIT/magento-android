@@ -19,7 +19,7 @@ fun HorizontalProductList(
     data: FeaturedCategory,
     featuredCategoryState: HashMap<Int, IState<List<Product>>>,
     baseMediaUrl: String?,
-    onClick: (String) -> Unit,
+    onClick: (Product) -> Unit,
 ) {
     featuredCategoryState[data.categoryId]?.let {
         Text(text = data.title)

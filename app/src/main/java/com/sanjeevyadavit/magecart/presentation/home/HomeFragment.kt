@@ -36,8 +36,8 @@ class HomeFragment : Fragment() {
                         val featuredCategoryState = viewModel.featuredCategoryState.value
                         
                         StateContainer(state = state) {
-                           Home(it, featuredCategoryState, activityViewModel.storeConfigs.value?.baseMediaUrl) { sku ->
-                               val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(sku)
+                           Home(it, featuredCategoryState, activityViewModel.storeConfigs.value?.baseMediaUrl) { item ->
+                               val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(item.sku, item.name)
                                navController.navigate(action)
                            }
                         }
