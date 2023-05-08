@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanjeevyadavit.magecart.common.model.IState
 import com.sanjeevyadavit.magecart.common.model.Resource
-import com.sanjeevyadavit.magecart.domain.model.Product
+import com.sanjeevyadavit.magecart.domain.model.ProductDetail
 import com.sanjeevyadavit.magecart.domain.use_case.GetProductDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -21,8 +21,8 @@ class ProductDetailViewModel @Inject constructor(
 ): ViewModel() {
     private val productSku = savedStateHandle.get<String>("productSku")
 
-    private val _state = mutableStateOf(IState<Product>())
-    val state: State<IState<Product>>
+    private val _state = mutableStateOf(IState<ProductDetail>())
+    val state: State<IState<ProductDetail>>
         get() = _state
 
     init {
