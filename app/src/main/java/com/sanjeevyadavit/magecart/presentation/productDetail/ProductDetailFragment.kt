@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -37,8 +38,21 @@ class ProductDetailFragment : Fragment() {
                     Surface {
                         val state = viewModel.state.value
 
+                        // QUESTION: Is this good practice to make API call like this?
+                        LaunchedEffect(state) {
+                            state.data?.configurableOptions?.forEach {
+                                if (activityViewModel.attributeMap.value.get(it.attributeId.toInt()) == null) {
+                                    activityViewModel.fetchAttributeData(it.attributeId.toInt())
+                                }
+                            }
+                        }
+
                         StateContainer(state = state) {
-                            ProductDetail(it, baseMediaUrl = activityViewModel.storeConfigs.value?.baseMediaUrl)
+                            ProductDetail(
+                                it,
+                                baseMediaUrl = activityViewModel.storeConfigs.value?.baseMediaUrl,
+                                attributeMap = activityViewModel.attributeMap.value
+                            )
                         }
                     }
                 }

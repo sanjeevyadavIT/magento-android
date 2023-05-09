@@ -11,5 +11,13 @@ data class ProductDetail(
     val mediaList: List<String>?,
     val description: String?,
     val productType: ProductType,
+    val configurableOptions: List<ConfigurableOption>?
+)
+
+data class ConfigurableOption(
+    val id: Int,
+    val attributeId: String,
+    val label: String,
+    val values: List<Int>
 )
 

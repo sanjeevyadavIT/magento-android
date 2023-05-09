@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.data.repository
 
 import com.sanjeevyadavit.magecart.data.remote.ApiInterface
 import com.sanjeevyadavit.magecart.data.remote.dto.*
+import com.sanjeevyadavit.magecart.data.remote.dto.attribute.AttributeDataDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
@@ -35,4 +36,6 @@ class MageCartRepositoryImpl @Inject constructor(private val api: ApiInterface) 
     )
 
     override suspend fun getProductDetail(sku: String): ProductDto = api.getProductDetail(sku)
+
+    override suspend fun getAttributeData(attributeId: Int): AttributeDataDto = api.getAttributeData(attributeId)
 }

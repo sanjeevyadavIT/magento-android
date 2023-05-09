@@ -3,6 +3,7 @@ package com.sanjeevyadavit.magecart.domain.repository
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.data.remote.dto.Filter
+import com.sanjeevyadavit.magecart.data.remote.dto.attribute.AttributeDataDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 
 interface MageCartRepository {
@@ -26,4 +27,6 @@ interface MageCartRepository {
     suspend fun getProductDetail(
         sku: String
     ): ProductDto
+
+    suspend fun getAttributeData(attributeId: Int): AttributeDataDto
 }
