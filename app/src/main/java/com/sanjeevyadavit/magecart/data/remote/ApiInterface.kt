@@ -3,6 +3,9 @@ package com.sanjeevyadavit.magecart.data.remote
 import com.sanjeevyadavit.magecart.common.Constants
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.attribute.AttributeDataDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyRequest
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import retrofit2.http.*
@@ -42,6 +45,19 @@ interface ApiInterface {
 
     @GET("V1/products/attributes/{attributeId}")
     suspend fun getAttributeData(@Path("attributeId") attributeId: Int): AttributeDataDto
+
+    /**
+     * NOTE: I was unable to pass the logged in customer token in top level to fetch customer related api,
+     * for the magento demo I am using, hence need to pass to every function individually
+     */
+    @GET("V1/carts/mine")
+    suspend fun getCustomerCart(@Header("Authorization") token: String): CartDto
+
+    @POST("V1/carts/mine")
+    suspend fun createQuoteId(@Header("Authorization") token: String): Int
+
+    @POST("V1/carts/mine/items")
+    suspend fun addItemToCart(@Header("Authorization") token: String, @Body item: AddItemToCartBodyRequest): CartItemDto
 
     companion object {
         const val API_BASE_URL = "${Constants.BASE_URL}rest/default/"

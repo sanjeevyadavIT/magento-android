@@ -21,7 +21,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApiInterface(retrofit: Retrofit): ApiInterface = retrofit.create(ApiInterface::class.java)
+    fun provideApiInterface(retrofit: Retrofit): ApiInterface =
+        retrofit.create(ApiInterface::class.java)
 
     @Provides
     @Singleton
@@ -36,9 +37,14 @@ class AppModule {
     fun provideOkHttpClient() = OkHttpClient.Builder()
         .addInterceptor(getLoggingInterceptor())
         .addInterceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${BuildConfig.MAGENTO_ACCESS_TOKEN}")
-                .build()
+            val request = chain.request()
+
+            // NOTE: When authorization was passed using @Header it was appending the two keys
+            val newRequest = request.newBuilder().apply {
+                if (request.header("Authorization") == null) {
+                    addHeader("Authorization", "Bearer ${BuildConfig.MAGENTO_ACCESS_TOKEN}")
+                }
+            }.build()
             chain.proceed(newRequest)
         }
         .build()
