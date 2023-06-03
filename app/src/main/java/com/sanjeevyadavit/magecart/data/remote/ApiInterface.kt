@@ -8,6 +8,7 @@ import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
+import com.sanjeevyadavit.magecart.data.remote.dto.profile.UserDto
 import retrofit2.http.*
 
 interface ApiInterface {
@@ -58,6 +59,9 @@ interface ApiInterface {
 
     @POST("V1/carts/mine/items")
     suspend fun addItemToCart(@Header("Authorization") token: String, @Body item: AddItemToCartBodyRequest): CartItemDto
+
+    @GET("V1/customers/me")
+    suspend fun fetchLoggedInCustomerDetails(@Header("Authorization") token: String): UserDto
 
     companion object {
         const val API_BASE_URL = "${Constants.BASE_URL}rest/default/"

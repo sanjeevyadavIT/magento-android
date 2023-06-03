@@ -8,6 +8,7 @@ import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyReques
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
+import com.sanjeevyadavit.magecart.data.remote.dto.profile.UserDto
 
 interface MageCartRepository {
 
@@ -38,4 +39,6 @@ interface MageCartRepository {
     suspend fun createQuoteId(authorizationToken: String): Int
 
     suspend fun addItemToCart(authorizationToken: String, itemToCartBodyRequest: AddItemToCartBodyRequest): CartItemDto
+
+    suspend fun fetchLoggedInCustomerDetails(authorizationToken: String): UserDto
 }

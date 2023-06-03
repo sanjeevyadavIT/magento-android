@@ -8,6 +8,7 @@ import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
+import com.sanjeevyadavit.magecart.data.remote.dto.profile.UserDto
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
 import javax.inject.Inject
 
@@ -47,4 +48,6 @@ class MageCartRepositoryImpl @Inject constructor(private val api: ApiInterface) 
     override suspend fun createQuoteId(authorizationToken: String): Int = api.createQuoteId(authorizationToken)
 
     override suspend fun addItemToCart(authorizationToken: String, itemToCartBodyRequest: AddItemToCartBodyRequest): CartItemDto = api.addItemToCart(authorizationToken, itemToCartBodyRequest)
+
+    override suspend fun fetchLoggedInCustomerDetails(authorizationToken: String): UserDto = api.fetchLoggedInCustomerDetails(authorizationToken)
 }
