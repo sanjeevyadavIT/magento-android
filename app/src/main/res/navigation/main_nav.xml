@@ -35,7 +35,11 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.sanjeevyadavit.magecart.presentation.cart.CartFragment"
-        android:label="@string/cart" />
+        android:label="@string/cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"

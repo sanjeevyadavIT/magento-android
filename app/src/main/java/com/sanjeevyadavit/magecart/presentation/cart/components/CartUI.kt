@@ -1,6 +1,6 @@
 package com.sanjeevyadavit.magecart.presentation.cart.components
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
@@ -16,27 +16,30 @@ import com.sanjeevyadavit.magecart.domain.model.Cart
 import com.sanjeevyadavit.magecart.domain.model.CartItem
 
 @Composable
-fun CartUI(data: Cart?) {
-    data?.items?.let { CartList(it) }
+fun CartUI(data: Cart?, openProductDetailScreen: (String, String?) -> Unit) {
+    data?.items?.let { CartList(it, openProductDetailScreen) }
 }
 
 @Composable
-fun CartList(items: List<CartItem>) {
+fun CartList(items: List<CartItem>, openProductDetailScreen: (String, String?) -> Unit) {
     LazyColumn {
         items(items.size) { index ->
-            CartListItem(items[index])
+            CartListItem(items[index], openProductDetailScreen)
             Divider()
         }
     }
 }
 
 @Composable
-fun CartListItem(cartItem: CartItem) {
+fun CartListItem(cartItem: CartItem, openProductDetailScreen: (String, String?) -> Unit) {
     // Display the cart item details in a row
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
+            .clickable {
+                openProductDetailScreen(cartItem.sku, cartItem.name)
+            }
     ) {
 
         AsyncImage(
@@ -75,5 +78,5 @@ fun CartItemRowPreview() {
         productType = ProductType.SIMPLE,
         quoteId = 1001
     )
-    CartListItem(cartItem = sampleCartItem)
+    CartListItem(cartItem = sampleCartItem) { a,b -> }
 }
