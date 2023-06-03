@@ -21,7 +21,6 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     private val storeConfigsUseCase: GetStoreConfigsUseCase,
     private val getAttributeDataUseCase: GetAttributeDataUseCase,
-    private val getCustomerCartUseCase: GetCustomerCartUseCase
 ) : ViewModel() {
 
     private val _storeConfigs = mutableStateOf<StoreConfigs?>(null)
@@ -31,10 +30,6 @@ class MainActivityViewModel @Inject constructor(
     private val _attributeMap = mutableStateOf<HashMap<Int, AttributeData>>(hashMapOf())
     val attributeMap: State<HashMap<Int, AttributeData>>
         get() = _attributeMap
-
-    private val _cart = mutableStateOf<Cart?>(null)
-    val cart: State<Cart?>
-        get() = _cart
 
     init {
         getStoreConfig()
@@ -55,21 +50,6 @@ class MainActivityViewModel @Inject constructor(
                 _attributeMap.value = _attributeMap.value.toMutableMap().apply {
                     it.data?.let { data -> put(attributeId, data) }
                 } as HashMap<Int, AttributeData>
-            }
-        }.launchIn(viewModelScope)
-    }
-
-    fun getCustomerCart(customerSessionToken: String, firstTimeLoggedIn: Boolean = false) {
-        getCustomerCartUseCase(customerSessionToken, firstTimeLoggedIn).onEach {
-            when (it) {
-                is Resource.Loading -> {
-                }
-                is Resource.Error -> {
-                    // TODO: DO something
-                }
-                is Resource.Success -> {
-                    _cart.value = it.data
-                }
             }
         }.launchIn(viewModelScope)
     }

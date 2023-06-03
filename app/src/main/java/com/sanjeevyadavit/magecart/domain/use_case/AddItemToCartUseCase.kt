@@ -2,7 +2,7 @@ package com.sanjeevyadavit.magecart.domain.use_case
 
 import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyRequest
-import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItem
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemRequest
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.toAddToCartResponse
 import com.sanjeevyadavit.magecart.domain.model.AddToCartResponse
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
@@ -19,7 +19,7 @@ class AddItemToCartUseCase @Inject constructor(private val repository: MageCartR
             val data = repository.addItemToCart(
                 authorizationToken = token,
                 itemToCartBodyRequest = AddItemToCartBodyRequest(
-                cartItem = CartItem(
+                cartItem = CartItemRequest(
                     sku = sku,
                     quantity = quantity,
                     quoteId = cartId

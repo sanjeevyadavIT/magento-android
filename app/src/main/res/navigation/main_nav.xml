@@ -33,6 +33,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.sanjeevyadavit.magecart.presentation.cart.CartFragment"
+        android:label="@string/cart" />
+
+    <fragment
         android:id="@+id/loginFragment"
         android:name="com.sanjeevyadavit.magecart.presentation.login.LoginFragment"
         android:label="@string/login"
