@@ -3,6 +3,9 @@ package com.sanjeevyadavit.magecart.data.repository
 import com.sanjeevyadavit.magecart.data.remote.ApiInterface
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.attribute.AttributeDataDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyRequest
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
@@ -38,4 +41,10 @@ class MageCartRepositoryImpl @Inject constructor(private val api: ApiInterface) 
     override suspend fun getProductDetail(sku: String): ProductDto = api.getProductDetail(sku)
 
     override suspend fun getAttributeData(attributeId: Int): AttributeDataDto = api.getAttributeData(attributeId)
+
+    override suspend fun getCustomerCart(authorizationToken: String): CartDto = api.getCustomerCart(authorizationToken)
+
+    override suspend fun createQuoteId(authorizationToken: String): Int = api.createQuoteId(authorizationToken)
+
+    override suspend fun addItemToCart(authorizationToken: String, itemToCartBodyRequest: AddItemToCartBodyRequest): CartItemDto = api.addItemToCart(authorizationToken, itemToCartBodyRequest)
 }

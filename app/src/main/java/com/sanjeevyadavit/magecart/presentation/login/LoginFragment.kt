@@ -50,6 +50,7 @@ class LoginFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             it.data?.let {
                 saveCustomerTokenInPreference(it)
+                (activity as MainActivity)?.fetchCustomerCart(it, true)
                 findNavController().popBackStack()
             }
         }
