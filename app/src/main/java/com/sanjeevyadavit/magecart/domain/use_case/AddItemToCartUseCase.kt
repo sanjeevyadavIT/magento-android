@@ -3,6 +3,7 @@ package com.sanjeevyadavit.magecart.domain.use_case
 import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyRequest
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItem
+import com.sanjeevyadavit.magecart.domain.model.AttributeData
 import com.sanjeevyadavit.magecart.data.remote.dto.carts.toAddToCartResponse
 import com.sanjeevyadavit.magecart.domain.model.AddToCartResponse
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
