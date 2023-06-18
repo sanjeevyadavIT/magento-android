@@ -8,15 +8,25 @@ import androidx.compose.ui.Modifier
 import com.sanjeevyadavit.magecart.common.model.IState
 
 @Composable
-fun <T> StateContainer(modifier: Modifier = Modifier, state: IState<T>, content: @Composable() (data: T) -> Unit) {
+fun <T> StateContainer(
+    modifier: Modifier = Modifier,
+    state: IState<T>,
+    errorUI: @Composable() (() -> Unit)? = null,
+    content: @Composable() (data: T) -> Unit
+) {
     Column(modifier = modifier) {
-        if(state.isLoading) {
+        if (state.isLoading) {
             CircularProgressIndicator()
-        } else if(state.data != null) {
+        } else if (state.data != null) {
             content(state.data)
-        }else {
-            val errorMessage = if(state.error.isNotEmpty()) state.error else "Something went wrong!!!!"
-            Text(text = errorMessage)
+        } else {
+            Column {
+                val errorMessage =
+                    if (state.error.isNotEmpty()) state.error else "Something went wrong!!!!"
+                Text(text = errorMessage)
+                errorUI?.invoke()
+            }
+
         }
     }
 }

@@ -1,8 +1,5 @@
 package com.sanjeevyadavit.magecart.presentation.profile.components
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,18 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.sanjeevyadavit.magecart.R
-import com.sanjeevyadavit.magecart.presentation.login.LoginFragment
+import com.sanjeevyadavit.magecart.common.components.StateContainer
+import com.sanjeevyadavit.magecart.common.model.IState
+import com.sanjeevyadavit.magecart.domain.model.User
 
 @Composable
-fun Profile(onLogoutClick: () -> Unit) {
-
+fun Profile(state: IState<User>, onLogoutClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +49,7 @@ fun Profile(onLogoutClick: () -> Unit) {
                         .background(Color.White)
                         .border(1.dp, Color.DarkGray),
                 )
-                Text(text = stringResource(R.string.greetings_user))
+                Text(text = "${stringResource(R.string.greetings_user)} ${state.data?.firstname ?: "You!"}")
             }
 
         }
@@ -62,6 +57,7 @@ fun Profile(onLogoutClick: () -> Unit) {
         OutlinedButton(onClick = onLogoutClick) {
             Text(text = "Logout")
         }
+
     }
 
 }
