@@ -1,10 +1,9 @@
-package com.sanjeevyadavit.magecart.data.remote.dto.carts
+package com.sanjeevyadavit.magecart.domain.model
 
 
 import com.google.gson.annotations.SerializedName
-import com.sanjeevyadavit.magecart.domain.model.AddToCartResponse
 
-data class CartItemDto(
+data class AddToCartResponse(
     @SerializedName("item_id")
     val itemId: Int,
     @SerializedName("name")
@@ -20,15 +19,3 @@ data class CartItemDto(
     @SerializedName("sku")
     val sku: String
 )
-
-fun CartItemDto.toAddToCartResponse(): AddToCartResponse {
-    return AddToCartResponse(
-        itemId = itemId,
-        name = name,
-        price = price,
-        productType = productType,
-        qty = qty,
-        quoteId = quoteId,
-        sku = sku
-    )
-}

@@ -23,6 +23,7 @@ import com.sanjeevyadavit.magecart.common.components.HtmlText
 import com.sanjeevyadavit.magecart.common.model.CarouselItemModel
 import com.sanjeevyadavit.magecart.common.model.IState
 import com.sanjeevyadavit.magecart.common.model.Resource
+import com.sanjeevyadavit.magecart.domain.model.AddToCartResponse
 import com.sanjeevyadavit.magecart.domain.model.AttributeData
 import com.sanjeevyadavit.magecart.domain.model.ConfigurableOption
 import com.sanjeevyadavit.magecart.domain.model.ProductDetail
@@ -34,7 +35,7 @@ fun ProductDetail(
     baseMediaUrl: String?,
     attributeMap: HashMap<Int, AttributeData>,
     isLoggedIn: Boolean,
-    addToCartApiStatus: IState<Boolean>,
+    addToCartApiStatus: IState<AddToCartResponse>,
     addItemToCart: (sku: String) -> Unit
 ) {
     val context = LocalContext.current
@@ -50,7 +51,7 @@ fun ProductDetail(
             ) else null
 
     LaunchedEffect(addToCartApiStatus) {
-        if (addToCartApiStatus is Resource.Success<*>) {
+        if (addToCartApiStatus.data != null) {
             scaffoldState.snackbarHostState.showSnackbar("Item added to Cart!")
         }
     }
@@ -64,7 +65,7 @@ fun ProductDetail(
             showToast("You are not logged in")
         } else if (product.productType != ProductType.SIMPLE) {
             // TODO@SANJEEV Add Support for CONFIGURABLE TYPE PRODUCT
-            showToast("${product.productType} is not yet supported")
+            showToast("${product.productType} product type is not yet supported yet")
         } else {
             addItemToCart(product.sku)
         }
@@ -93,19 +94,18 @@ fun ProductDetail(
                     ConfigurableOptionUI(option, attributeMap[option.attributeId.toInt()])
                 }
             }
-            Button(onClick = addToCart, enabled = addToCartApiStatus.isLoading) {
+            // TODO: After add to cart success, the loader is spinning and show toast message that add to cart is success
+            Button(onClick = addToCart, enabled = !addToCartApiStatus.isLoading) {
                 if (addToCartApiStatus.isLoading) {
                     CircularProgressIndicator(
                         color = MaterialTheme.colors.primary
                     )
-                } else {
+                } else
                     Text(text = "Add to Cart")
-                }
-
             }
+
         }
     }
-
 }
 
 // TODO: Extract the simple product when user chooses configurable options

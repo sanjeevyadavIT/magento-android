@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanjeevyadavit.magecart.common.model.IState
 import com.sanjeevyadavit.magecart.common.model.Resource
+import com.sanjeevyadavit.magecart.domain.model.AddToCartResponse
 import com.sanjeevyadavit.magecart.domain.model.ProductDetail
 import com.sanjeevyadavit.magecart.domain.use_case.AddItemToCartUseCase
 import com.sanjeevyadavit.magecart.domain.use_case.GetProductDetailUseCase
@@ -27,8 +28,8 @@ class ProductDetailViewModel @Inject constructor(
     val state: State<IState<ProductDetail>>
         get() = _state
 
-    private val _addToCartStatus = mutableStateOf(IState<Boolean>())
-    val addToCartStatus: State<IState<Boolean>>
+    private val _addToCartStatus = mutableStateOf(IState<AddToCartResponse>())
+    val addToCartStatus: State<IState<AddToCartResponse>>
         get() = _addToCartStatus
 
     init {
@@ -55,7 +56,7 @@ class ProductDetailViewModel @Inject constructor(
             _addToCartStatus.value = when(result){
                 is Resource.Loading -> IState(isLoading = true)
                 is Resource.Error -> IState(error = result?.message ?: "Unable to add item to cart, something went wrong")
-                is Resource.Success -> IState(data = true)
+                is Resource.Success -> IState(data = result.data)
             }
         }.launchIn(viewModelScope)
     }
