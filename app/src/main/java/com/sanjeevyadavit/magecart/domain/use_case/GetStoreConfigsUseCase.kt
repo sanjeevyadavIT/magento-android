@@ -1,12 +1,11 @@
 package com.sanjeevyadavit.magecart.domain.use_case
 
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.data.remote.dto.toStoreConfigs
 import com.sanjeevyadavit.magecart.domain.model.StoreConfigs
 import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import java.util.concurrent.Flow
 import javax.inject.Inject
 
 class GetStoreConfigsUseCase @Inject constructor(private val repository: MageCartRepository) {

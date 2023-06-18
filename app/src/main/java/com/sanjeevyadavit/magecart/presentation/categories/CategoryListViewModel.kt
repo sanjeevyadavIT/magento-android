@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanjeevyadavit.magecart.common.IState
-import com.sanjeevyadavit.magecart.common.Resource
+import com.sanjeevyadavit.magecart.common.model.IState
+import com.sanjeevyadavit.magecart.common.model.Resource
 import com.sanjeevyadavit.magecart.domain.model.Category
 import com.sanjeevyadavit.magecart.domain.use_case.GetCategoryListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

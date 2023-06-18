@@ -23,7 +23,8 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField("String", "MAGENTO_ACCESS_TOKEN", MEGAPLAZA_ACCESS_TOKEN)
+        buildConfigField("String", "MAGENTO_ACCESS_TOKEN", MAGENTO_ACCESS_TOKEN)
+        buildConfigField("int", "HOME_CMS_BLOCK_ID", HOME_CMS_BLOCK_ID)
     }
 
     buildTypes {
@@ -92,6 +93,9 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+    // Compose Carousel
+    implementation "com.google.accompanist:accompanist-pager:0.19.0"
 
 
     testImplementation 'junit:junit:4.13.2'

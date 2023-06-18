@@ -3,15 +3,15 @@ package com.sanjeevyadavit.magecart.data.remote
 import com.sanjeevyadavit.magecart.common.Constants
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiInterface {
 
     @GET("V1/store/storeConfigs")
     suspend fun storeConfigs(): List<StoreConfigsDto>
+
+    @GET("V1/cmsBlock/{blockId}")
+    suspend fun getCmsBlock(@Path("blockId") blockId: Int): CmsBlockDto
 
     @POST("V1/integration/customer/token")
     suspend fun login(@Body body: LoginBodyRequest): String
