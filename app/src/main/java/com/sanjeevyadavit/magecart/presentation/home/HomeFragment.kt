@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val navController = findNavController()
+
         return ComposeView(requireContext()).apply { 
             setContent { 
                 MaterialTheme {
