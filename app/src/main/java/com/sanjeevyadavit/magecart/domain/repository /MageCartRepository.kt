@@ -3,6 +3,11 @@ package com.sanjeevyadavit.magecart.domain.repository
 import com.sanjeevyadavit.magecart.data.remote.dto.*
 import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductsDto
 import com.sanjeevyadavit.magecart.data.remote.dto.Filter
+import com.sanjeevyadavit.magecart.data.remote.dto.attribute.AttributeDataDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.AddItemToCartBodyRequest
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartDto
+import com.sanjeevyadavit.magecart.data.remote.dto.carts.CartItemDto
+import com.sanjeevyadavit.magecart.data.remote.dto.product.ProductDto
 
 interface MageCartRepository {
 
@@ -21,4 +26,16 @@ interface MageCartRepository {
         pageSize: Int = 20,
         currentPage: Int = 1
     ): ProductsDto
+
+    suspend fun getProductDetail(
+        sku: String
+    ): ProductDto
+
+    suspend fun getAttributeData(attributeId: Int): AttributeDataDto
+
+    suspend fun getCustomerCart(authorizationToken: String): CartDto
+
+    suspend fun createQuoteId(authorizationToken: String): Int
+
+    suspend fun addItemToCart(authorizationToken: String, itemToCartBodyRequest: AddItemToCartBodyRequest): CartItemDto
 }

@@ -9,7 +9,7 @@ data class ExtensionAttributes(
     @SerializedName("configurable_product_links")
     val configurableProductLinks: List<Int>,
     @SerializedName("configurable_product_options")
-    val configurableProductOptions: List<ConfigurableProductOption>,
+    val configurableProductOptions: List<ConfigurableProductOption>?,
     @SerializedName("website_ids")
     val websiteIds: List<Int>
 )

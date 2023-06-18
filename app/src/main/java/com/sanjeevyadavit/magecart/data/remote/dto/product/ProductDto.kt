@@ -3,7 +3,10 @@ package com.sanjeevyadavit.magecart.data.remote.dto.product
 
 import com.google.gson.annotations.SerializedName
 import com.sanjeevyadavit.magecart.common.Constants
+import com.sanjeevyadavit.magecart.common.getProductTypeFromString
+import com.sanjeevyadavit.magecart.domain.model.ConfigurableOption
 import com.sanjeevyadavit.magecart.domain.model.Product
+import com.sanjeevyadavit.magecart.domain.model.ProductDetail
 
 data class ProductDto(
     @SerializedName("attribute_set_id")
@@ -50,6 +53,32 @@ fun ProductDto.toProduct(): Product {
         name = name,
         sku = sku,
         price = price,
-        thumbnailUrl = thumbnailUrl
+        thumbnailUrl = thumbnailUrl,
+        mediaList = mediaGalleryEntries.map { it.file }
+    )
+}
+
+fun ProductDto.toProductDetail(): ProductDetail {
+    val product = toProduct()
+    val description = customAttributes.find { it.attributeCode == "description" }?.value as String?
+    val configurableOptions =
+        extensionAttributes?.configurableProductOptions?.sortedBy { it.position }?.map {
+            ConfigurableOption(
+                id = it.id,
+                attributeId = it.attributeId,
+                label = it.label,
+                values = it.values.map { it.valueIndex })
+        }
+
+    return ProductDetail(
+        id = product.id,
+        name = product.name,
+        sku = product.sku,
+        price = product.price,
+        thumbnailUrl = product.thumbnailUrl,
+        mediaList = product.mediaList,
+        description = description,
+        productType = getProductTypeFromString(typeId),
+        configurableOptions = configurableOptions
     )
 }

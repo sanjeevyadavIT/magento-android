@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupToolbar()
         setupDrawer()
+        fetchCustomerCart()
     }
 
     private fun getNavController() {
@@ -76,10 +77,10 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.visibility = View.VISIBLE
         binding.bottomNavigation.setOnItemSelectedListener {
             navController.navigate(
-                when(it.itemId){
+                when (it.itemId) {
                     R.id.homeFragment -> R.id.homeFragment
                     R.id.categoriesFragment -> R.id.categoriesFragment
-                    R.id.profileFragment -> if(isLoggedIn()) R.id.profileFragment else R.id.loginFragment
+                    R.id.profileFragment -> if (isLoggedIn()) R.id.profileFragment else R.id.loginFragment
                     else -> R.id.homeFragment
                 }
             )
@@ -91,5 +92,15 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.visibility = View.GONE
     }
 
-    private fun isLoggedIn() = sharedPref.getString(LoginFragment.CUSTOMER_TOKEN, null) != null
+    fun getCustomerToken() = sharedPref.getString(LoginFragment.CUSTOMER_TOKEN, null)
+
+    fun isLoggedIn() = getCustomerToken() != null
+
+    // TODO: Instead of reading token again and again directly from Sharedpreference save inb this file and update it on change
+    fun fetchCustomerCart(customerToken: String? = null, firstTimeLoggedIn: Boolean = false) = (customerToken ?: getCustomerToken())?.let { token ->
+        viewModel.getCustomerCart(
+            token,
+            firstTimeLoggedIn
+        )
+    }
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sanjeevyadavit.magecart.common.components.StateContainer
 import com.sanjeevyadavit.magecart.presentation.MainActivityViewModel
 import com.sanjeevyadavit.magecart.presentation.home.components.Home
@@ -26,7 +27,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        
+        val navController = findNavController()
+
         return ComposeView(requireContext()).apply { 
             setContent { 
                 MaterialTheme {
@@ -35,7 +37,10 @@ class HomeFragment : Fragment() {
                         val featuredCategoryState = viewModel.featuredCategoryState.value
                         
                         StateContainer(state = state) {
-                           Home(it, featuredCategoryState, activityViewModel.storeConfigs.value?.baseMediaUrl)
+                           Home(it, featuredCategoryState, activityViewModel.storeConfigs.value?.baseMediaUrl) { item ->
+                               val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(item.sku, item.name)
+                               navController.navigate(action)
+                           }
                         }
                     }
                 }

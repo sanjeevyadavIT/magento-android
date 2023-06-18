@@ -2,6 +2,7 @@ package com.sanjeevyadavit.magecart.presentation.products
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanjeevyadavit.magecart.common.model.IState
@@ -13,16 +14,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 const val PAGE_SIZE = 10
 
 @HiltViewModel
 class ProductListViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     var getProductListUseCase: GetProductListUseCase
 ) : ViewModel() {
 
-    private var categoryId by Delegates.notNull<Int>()
+    private val categoryId = savedStateHandle.get<Int>("categoryId")
 
     private val _state = mutableStateOf(IState<List<Product>>())
     val state: State<IState<List<Product>>>
@@ -35,9 +36,12 @@ class ProductListViewModel @Inject constructor(
     private var totalCount: Int = 0
     private var productListScrollPosition = 0
 
-    fun getProducts(categoryId: Int) {
-        this.categoryId = categoryId
-        val filters = mutableListOf<Filter>(Filter(field = "category_id", value = categoryId))
+    init {
+        getProducts()
+    }
+
+    private fun getProducts() {
+        val filters = mutableListOf<Filter>(Filter(field = "category_id", value = categoryId ?: -1))
         // QUESTION: Where should this pagination logic resides?
         val currentPage = ((_state.value.data?.size ?: 0) / PAGE_SIZE) + 1;
         if (currentPage > 1) {
@@ -68,7 +72,7 @@ class ProductListViewModel @Inject constructor(
     fun fetchNextPage() {
         // prevent duplicate event due to recompose happening to quickly
         if ((productListScrollPosition + 1) < (totalCount) && !_loadMore.value) {
-            getProducts(categoryId)
+            getProducts()
         }
     }
 

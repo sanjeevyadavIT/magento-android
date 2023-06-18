@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sanjeevyadavit.magecart.common.components.StateContainer
-import com.sanjeevyadavit.magecart.data.remote.dto.CategoriesDto
 import com.sanjeevyadavit.magecart.domain.model.Category
 import com.sanjeevyadavit.magecart.ui.categories.CategoryList
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,8 +35,8 @@ class CategoriesFragment : Fragment() {
                         val state = viewModel.state.value
 
                         StateContainer(state = state) {
-                            CategoryList(categoryList = it, useLazyList = true) { categoryId ->
-                                val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductListFragment(categoryId)
+                            CategoryList(categoryList = it, useLazyList = true) { category ->
+                                val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductListFragment(category.id, category.name)
                                 navController.navigate(action)
                             }
                         }
