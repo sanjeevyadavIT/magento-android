@@ -2,14 +2,11 @@ package com.sanjeevyadavit.magecart.di
 
 import com.sanjeevyadavit.magecart.BuildConfig
 import com.sanjeevyadavit.magecart.data.remote.ApiInterface
-import com.sanjeevyadavit.magecart.data.repository.MageCartRepositoryImpl
-import com.sanjeevyadavit.magecart.domain.repository.MageCartRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,10 +20,6 @@ class AppModule {
     @Singleton
     fun provideApiInterface(retrofit: Retrofit): ApiInterface =
         retrofit.create(ApiInterface::class.java)
-
-    @Provides
-    @Singleton
-    fun provideMageCartRepositoryImpl(api: ApiInterface) = MageCartRepositoryImpl(api)
 
     private fun getLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
